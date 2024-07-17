@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+    <style>
+        .div1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: rgb(78, 12, 12);
+        }
+    </style>
+</head>
+<body>
+    <div class="div1">
+        <h1>Using WebSockets Connection</h1>
+        <h1 id="status">Status: Connecting...</h1>
+    </div>
+
+    <script>
+        // Create a WebSocket connection
+        const socket = new WebSocket('ws://192.168.1.68:8080');
+
+        // Handle WebSocket events
+        socket.onopen = function () {
+            console.log('Connected to the server');
+            document.getElementById('status').textContent = 'Status: Online';
+        };
+
+        socket.onmessage = function (event) {
+            console.log('Message from server:', event.data);
+        };
+
+        socket.onclose = function () {
+            console.log('Disconnected from the server');
+            document.getElementById('status').textContent = 'Status: Offline';
+        };
+
+        socket.onerror = function (error) {
+            console.error('WebSocket error:', error);
+            document.getElementById('status').textContent = 'Status: Error';
+        };
+    </script>
+</body>
+</html>
